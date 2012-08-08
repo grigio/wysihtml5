@@ -31,6 +31,8 @@
       // Also remove all CARET hacks that somehow got left
       value = wysihtml5.lang.string(value).replace(wysihtml5.INVISIBLE_SPACE).by("");
 
+      window.localStorage["TextEditorData"]=value;
+
       return value;
     },
 
@@ -38,7 +40,7 @@
       if (parse) {
         html = this.parent.parse(html);
       }
-      
+
       try {
         this.element.innerHTML = html;
       } catch (e) {
@@ -120,6 +122,7 @@
       this.iframe  = this.sandbox.getIframe();
       
       var textareaElement = this.textarea.element;
+      textareaElement.value = window.localStorage.TextEditorData
       dom.insert(this.iframe).after(textareaElement);
       
       // Create hidden field which tells the server after submit, that the user used an wysiwyg editor
